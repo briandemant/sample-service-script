@@ -3,8 +3,7 @@
 SERVICE_FILE=$(tempfile)
 
 echo "--- Download template ---"
-wget -q -O "$SERVICE_FILE" 'https://raw.githubusercontent.com/jasonblewis/sample-service-script/master/service.sh' || { echo 'ERROR: Could not retreive service.sh from github'; exit 1;}
-
+cp service.sh $SERVICE_FILE
 chmod +x "$SERVICE_FILE"
 echo ""
 
@@ -30,7 +29,7 @@ prompt_token() {
   sed -i "s/<$1>/$rstr/g" $SERVICE_FILE
 }
 
-prompt_token 'SERVICE_NAME'        'Service name'
+prompt_token 'NAME'        'Service name'
 if [ -f "/etc/init.d/$NAME" ]; then
   echo "Error: service '$NAME' already exists"
   exit 1
